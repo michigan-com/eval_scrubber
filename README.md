@@ -10,6 +10,8 @@ This scan uses a regular expression to seek out any potentially malicious conten
 infected_pattern = re.compile(r"<\?php\s*eval\((.+\()*base64_decode\(.+\)\).+\s*?>")
 ```
 
+What it is matching is `<?php eval(base64_decode()) ?>` or `<?php eval(gzinflate(base64_decode())) ?>`
+
 It is strongly advized to check that this regular expression will match your needs.
 
 We have not covered all of the edge cases for this script so be warned running this
