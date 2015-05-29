@@ -24,7 +24,7 @@ def remove_infection(dir_):
                 with open(curfile, 'w') as fp:
                     fp.write(new_str)
                     count += 1
-                    print(os.path.join(root, fname))
+                    print('Potentially infected: %s' % curfile)
     print('-' * 30)
     print('Total: %s' % count)
 
