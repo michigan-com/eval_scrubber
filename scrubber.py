@@ -13,11 +13,15 @@ def remove_infection(dir_):
     for root, dirs, files in os.walk(dir_):
         for fname in files:
             contents = ''
-            with open(os.path.join(root, fname), 'r') as fp:
+            curfile = os.path.join(root, fname)
+            if os.path.islink(curfile):
+                print('Skipping symbolic link: %s' % curfile)
+                continue
+            with open(curfile, 'r') as fp:
                 contents = fp.read()
             new_str = re.sub(infected_pattern, '', contents)
             if len(contents) != len(new_str):
-                with open(os.path.join(root, fname), 'w') as fp:
+                with open(curfile, 'w') as fp:
                     fp.write(new_str)
                     count += 1
                     print(os.path.join(root, fname))
@@ -29,11 +33,15 @@ def find_infected_files(dir_):
     count = 0
     for root, dirs, files in os.walk(dir_):
         for fname in files:
-            with open(os.path.join(root, fname), 'r') as fp:
+            curfile = os.path.join(root, fname)
+            if os.path.islink(curfile):
+                print('Skipping symbolic link: %s' % curfile)
+                continue
+            with open(curfile, 'r') as fp:
                 contents = fp.read()
                 if infected_pattern.search(contents):
                     count += 1
-                    print(os.path.join(root, fname))
+                    print('Potentially infected: %s' % curfile)
     print('-' * 30)
     print('Total: %s' % count)
 
