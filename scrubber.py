@@ -6,7 +6,7 @@ import re
 import sys
 
 infected_pattern = re.compile(r"<\?php\s*eval\((.+\()*base64_decode\(.+\)\).+\s*?>")
-blacklist_filetypes = ['.tar.gz', '.zip']
+blacklist_filetypes = ['.gz', '.zip']
 
 def get_file_ext(fname):
     base_name, file_ext = os.path.splitext(fname)
