@@ -6,44 +6,64 @@ import re
 import sys
 
 infected_pattern = re.compile(r"<\?php\s*eval\((.+\()*base64_decode\(.+\)\).+\s*?>")
+blacklist_filetypes = ['.tar.gz', '.zip']
+
+def get_file_ext(fname):
+    base_name, file_ext = os.path.splitext(fname)
+    return file_ext
+
+def exclude_file(fname):
+    file_ext = get_file_ext(fname)
+    if file_ext in blacklist_filetypes:
+        print('SKIP - blacklisted filetype: %s' % fname)
+        return True
+    if os.path.islink(fname):
+        print('SKIP - symbolic link: %s' % fname)
+        return True
+    return False
 
 def remove_infection(dir_):
     print('Scanning and replacing infected files ...')
     count = 0
     for root, dirs, files in os.walk(dir_):
+        print('SCAN: %s' % root)
         for fname in files:
             contents = ''
             curfile = os.path.join(root, fname)
-            if os.path.islink(curfile):
-                print('Skipping symbolic link: %s' % curfile)
+            if exclude_file(curfile):
                 continue
             with open(curfile, 'r') as fp:
                 contents = fp.read()
             new_str = re.sub(infected_pattern, '', contents)
             if len(contents) != len(new_str):
-                with open(curfile, 'w') as fp:
-                    fp.write(new_str)
-                    count += 1
-                    print('Potentially infected: %s' % curfile)
+                try:
+                    with open(curfile, 'w') as fp:
+                        fp.write(new_str)
+                        count += 1
+                        print('=' * 30)
+                        print('INFECTED, FIXING: %s' % curfile)
+                except IOError as err:
+                    print('SKIP - IOError: %s: %s' % (err, curfile))
     print('-' * 30)
-    print('Total: %s' % count)
+    print('TOTAL: %s' % count)
 
 def find_infected_files(dir_):
     print('Finding all infected files ...')
     count = 0
     for root, dirs, files in os.walk(dir_):
+        print('SCAN: %s' % root)
         for fname in files:
             curfile = os.path.join(root, fname)
-            if os.path.islink(curfile):
-                print('Skipping symbolic link: %s' % curfile)
+            if exclude_file(curfile):
                 continue
             with open(curfile, 'r') as fp:
                 contents = fp.read()
                 if infected_pattern.search(contents):
                     count += 1
-                    print('Potentially infected: %s' % curfile)
+                    print('=' * 30)
+                    print('INFECTED: %s' % curfile)
     print('-' * 30)
-    print('Total: %s' % count)
+    print('TOTAL: %s' % count)
 
 if __name__ == '__main__':
     args = sys.argv
