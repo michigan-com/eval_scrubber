@@ -5,7 +5,7 @@ import re
 import sys
 import logging
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 infected_pattern = re.compile(r"<\?php\s*eval\((.+\()*base64_decode\(.+\)\).+\s*?>")
 blacklist_filetypes = ['.gz', '.zip', '.mov']
@@ -36,8 +36,8 @@ def remove_infected(dir_):
             curfile = os.path.join(root, fname)
             if exclude_file(curfile):
                 continue
-            with open(curfile, 'r') as fp:
-                contents = fp.read()
+            with open(curfile, 'rb') as fp:
+                contents = fp.read().decode('utf-8')
             new_str = re.sub(infected_pattern, '', contents)
             if len(contents) != len(new_str):
                 try:
@@ -65,8 +65,8 @@ def find_infected(dir_):
             curfile = os.path.join(root, fname)
             if exclude_file(curfile):
                 continue
-            with open(curfile, 'r') as fp:
-                contents = fp.read()
+            with open(curfile, 'rb') as fp:
+                contents = fp.read().decode('utf-8')
                 if infected_pattern.search(contents):
                     count += 1
                     infections.append(curfile)
