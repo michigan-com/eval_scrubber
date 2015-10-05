@@ -30,7 +30,7 @@ class TestScrubber(unittest.TestCase):
         rm = scrubber.remove_infected(_DIR)
 
         self.assertEqual(len(rm), 1)
-        with open(os.path.join(_DIR, 'infected_1.txt'), 'rw') as fp:
+        with open(os.path.join(_DIR, 'infected_1.txt'), 'r') as fp:
             self.assertEqual(fp.read(), cleaned_text)
 
 if __name__ == '__main__':
