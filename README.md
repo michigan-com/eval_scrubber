@@ -1,5 +1,5 @@
-Wordpress Eval/Base64 File Scrubber
-===================================
+Eval/Base64 File Scrubber
+=========================
 
 This script will walk through all files in a directory, find, and remove
 any content that is suspected to be malicious.
@@ -28,4 +28,9 @@ from all potentially infected files
 ```
 python scrubber.py find <dir>
 python scrubber.py remove <dir>
+```
+
+Set the log level
+```
+DEBUG=1 python scrubber.py find <dir>
 ```
