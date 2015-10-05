@@ -2,7 +2,7 @@
 import os
 import unittest
 
-import scrubber
+import eval_scrubber as scrubber
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 _DIR = os.path.join(BASE_DIR, "test_data")

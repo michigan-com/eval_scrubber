@@ -26,11 +26,18 @@ Actions:
 from all potentially infected files
 
 ```
-python scrubber.py find <dir>
-python scrubber.py remove <dir>
+python -m eval_scrubber find <dir>
+python -m eval_scrubber remove <dir>
 ```
 
 Set the log level
 ```
-DEBUG=1 python scrubber.py find <dir>
+DEBUG=1 python -m eval_scrubber find <dir>
+```
+
+Install via PIP
+---------------
+
+```
+pip install eval_scrubber
 ```

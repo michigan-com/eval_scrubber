@@ -4,7 +4,7 @@ import re
 from setuptools import setup, find_packages
 
 version = ''
-with open('scrubber/__init__.py', 'r') as fp:
+with open('eval_scrubber/__init__.py', 'r') as fp:
     version = re.search(
         r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
         fp.read(),
@@ -22,7 +22,7 @@ with open('LICENSE.md', 'r') as fp:
     license = fp.read()
 
 setup(
-    name='scrubber',
+    name='eval_scrubber',
     version=version,
     description='Finds and removes malicious eval base64 PHP code.',
     long_description=readme + '\n\n' + changes,
