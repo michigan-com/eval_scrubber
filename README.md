@@ -21,8 +21,8 @@ The script accepts two arguments: action and directory
 
 Actions:
 
-* Find - Scans directory recursively and lists all potentially infected files
-* Remove - Scans directory recursively and removes the regular express match
+* Find (SAFE, READ-only) - Scans directory recursively and lists all potentially infected files
+* Remove (DANGEROUR, will WRITE) - Scans directory recursively and removes the regular express match
 from all potentially infected files
 
 ```
