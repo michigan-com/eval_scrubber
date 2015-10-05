@@ -8,7 +8,7 @@ from . import find_infected, remove_infected
 if __name__ == '__main__':
     args = sys.argv
     if (len(args) < 3):
-        raise ValueError('Please supply the action (find or remove) and the directory ex: python scrubber.py find /home/username')
+        raise ValueError('Please supply the action (find or remove) and the directory ex: python -m eval_scrubber find /home/username')
 
     action = args[1]
     directory = args[2]
