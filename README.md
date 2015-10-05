@@ -1,4 +1,4 @@
-Eval/Base64 File Scrubber
+Eval/Base64 File Scrubber [![Build Status](https://travis-ci.org/michigan-com/eval_scrubber.svg?branch=master)](https://travis-ci.org/michigan-com/eval_scrubber)
 =========================
 
 This script will walk through all files in a directory, find, and remove
