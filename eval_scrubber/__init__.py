@@ -22,6 +22,9 @@ def exclude_file(fname):
     if os.path.islink(fname):
         logging.debug('SKIP - symbolic link: %s' % fname)
         return True
+    if '.git/' in fname:
+        logging.debug('SKIP - .git file: %s' % fname)
+        return True
     return False
 
 def remove_infected(dir_):
